@@ -1,0 +1,77 @@
+version: '3'
+
+services:
+  database:
+    image: mysql:latest
+    container_name: stock-market-database
+    environment:
+      - MYSQL_DATABASE=stock-market
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=dev
+      - MYSQL_ROOT_PASSWORD=dev
+    ports:
+      - "3306:3306"
+#    volumes:
+#      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+#      - .docker/database/data:/var/lib/mysql
+    networks:
+      - stock-market-net
+
+  php-fpm:
+    container_name: stock-market-php
+    build:
+      context: .docker/php-fpm
+    depends_on:
+      - database
+    environment:
+      - APP_ENV=${APP_ENV}
+      - APP_SECRET=${APP_SECRET}
+#      - DATABASE_URL=mysql://${DATABASE_USER}:${DATABASE_PASSWORD}@database:3306/${DATABASE_NAME}?serverVersion=5.7
+    volumes:
+      - .:/opt
+    networks:
+      - stock-market-net
+#
+  nginx:
+    image: nginx:alpine
+    container_name: stock-market-nginx
+    volumes:
+      - .:/opt
+#      - .docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+#      - .docker/nginx/sites/:/etc/nginx/sites-available
+#      - .docker/nginx/conf.d/:/etc/nginx/conf.d
+      - .docker/nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
+#      - .docker/nginx/logs:/var/log
+    depends_on:
+      - php-fpm
+    ports:
+      - "80:80"
+    tty: true
+    networks:
+      - stock-market-net
+
+  redis:
+    image: redis:alpine
+    container_name: stock-market-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - stock-market-net
+
+  angular:
+    container_name: stock-market-angular
+    build:
+      context: .docker/angular
+    ports:
+      - "8080:4200"
+    depends_on:
+      - php-fpm
+    volumes:
+#      - /opt/node_modules
+      - ./frontend:/opt
+    networks:
+      - stock-market-net
+
+networks:
+  stock-market-net:
+    driver: bridge

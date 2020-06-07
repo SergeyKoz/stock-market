@@ -1,0 +1,18 @@
+framework:
+    router:
+        utf8: true
+
+
+fos_rest:
+    body_listener: true
+    format_listener:
+        rules:
+            - { path: '^/api',  priorities: ['json'], fallback_format: json, prefer_extension: true }
+    view:
+        view_response_listener: 'force'
+        formats:
+            json: true
+
+        # Configure how to generate URLs in non-HTTP contexts, such as CLI commands.
+        # See https://symfony.com/doc/current/routing.html#generating-urls-in-commands
+        #default_uri: http://localhost
