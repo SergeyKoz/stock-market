@@ -1,0 +1,18 @@
+<table class="table table-hover">
+  <tr>
+    <th>Date</th>
+    <th>Open</th>
+    <th>High</th>
+    <th>Low</th>
+    <th>Close</th>
+    <th>Volume</th>
+  </tr>
+  <tr *ngFor="let price of service.historicalPricesList">
+    <td>{{moment(price.date * 1000).format('YYYY-MM-DD')}}</td>
+    <td>{{price.open.toFixed(5)}}</td>
+    <td>{{price.high.toFixed(5)}}</td>
+    <td>{{price.low.toFixed(5)}}</td>
+    <td>{{price.close.toFixed(5)}}</td>
+    <td>{{price.volume}}</td>
+  </tr>
+</table>

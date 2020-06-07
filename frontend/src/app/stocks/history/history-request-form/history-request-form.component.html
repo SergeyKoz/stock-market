@@ -1,0 +1,19 @@
+<form #form="ngForm" (submit)="onSubmit(form)">
+  <div class="form-group">
+    <input name="symbol" #symbol="ngModel" [(ngModel)]="service.formData.symbol" class="form-control" placeholder="Company symbol" required maxlength="6" minlength="2"/>
+  </div>
+  <div class="form-group">
+    <input name="from" [owlDateTimeTrigger]="dtFrom" [owlDateTime]="dtFrom" #from="ngModel" [(ngModel)]="service.formData.from" class="form-control" placeholder="From Date" required/>
+    <owl-date-time [pickerType]="'calendar'" #dtFrom></owl-date-time>
+  </div>
+  <div class="form-group">
+    <input name="to" [owlDateTimeTrigger]="dtTo" [owlDateTime]="dtTo" #to="ngModel" [(ngModel)]="service.formData.to" class="form-control" placeholder="To Date" required/>
+    <owl-date-time [pickerType]="'calendar'" #dtTo></owl-date-time>
+  </div>
+  <div class="form-group">
+    <input name="email" #email="ngModel" [(ngModel)]="service.formData.email" class="form-control" placeholder="Email" required email/>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit" [disabled]="form.invalid"><i class="fa fa-database"></i>Submit</button>
+  </div>
+</form>

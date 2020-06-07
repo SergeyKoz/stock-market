@@ -10,7 +10,6 @@ class InstallTest extends TestCase
     function testDebug()
     {
         Assert::assertFalse(false);
-        Assert::assertFalse(true);
         return;
     }
 }

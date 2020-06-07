@@ -27,7 +27,7 @@ class HistoryRequestForm
             throw new FormErrorException(Response::HTTP_BAD_REQUEST, "Field 'email' cannot be empty.", ['email']);
         }
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new FormErrorException(Response::HTTP_BAD_REQUEST, "Invalid email formal.", ['email']);
+            throw new FormErrorException(Response::HTTP_BAD_REQUEST, "Invalid email format.", ['email']);
         }
 
         $format = 'Y-m-d';

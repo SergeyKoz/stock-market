@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    financial_api_key: 'f6eee72431msh932732f07a85829p1e4d1djsnb786bd96f30f'
+    financial_api_key: '<The api key>'
     financial_api_url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com'
 
 services:

@@ -1,5 +1,7 @@
 FROM php:fpm-alpine
 
+WORKDIR /opt
+
 RUN apk add --no-cache \
 		$PHPIZE_DEPS \
 		openssl-dev
@@ -11,8 +13,14 @@ RUN apk add mysql-client \
     && docker-php-ext-configure mysqli --with-mysql-sock=/var/run/mysqld/mysqld.sock \
     && docker-php-ext-enable xdebug
 
-# COPY --from=composer /usr/bin/composer /usr/bin/composer
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+        --filename=composer \
+        --install-dir=/usr/local/bin && \
+        echo "alias composer='composer'" >> /root/.bashrc && \
+        composer
+
 WORKDIR /opt
-# CMD composer install ; wait-for-it database:3306 -- bin/console doctrine:migrations:migrate ;  php-fpm
+
 CMD php-fpm
 EXPOSE 900
