@@ -36,7 +36,6 @@ docker exec stock-market-php /bin/sh -lc "composer install"
 ```bash
 docker exec stock-market-php /bin/sh -lc "php bin/console doctrine:migrations:migrate"
 docker exec stock-market-php /bin/sh -lc "php bin/console doctrine:fixtures:load"
-docker exec stock-market-angular /bin/sh -lc "npm install -g > /dev/null && npm run build"
 ```
 
 - Init frontend part (Angular) 
