@@ -34,11 +34,17 @@ docker exec stock-market-php /bin/sh -lc "composer install"
 ```
 - Load initial database 
 ```bash
-php bin/console doctrine:migrations:migrate
-php bin/console doctrine:fixtures:load
+docker exec stock-market-php /bin/sh -lc "php bin/console doctrine:migrations:migrate"
+docker exec stock-market-php /bin/sh -lc "php bin/console doctrine:fixtures:load"
+docker exec stock-market-angular /bin/sh -lc "npm install -g > /dev/null && npm run build"
 ```
 
-The frontend is allowed by address [http://127.0.0.1:8080](http://127.0.0.1:8080/)
+- Init frontend part (Angular) 
+```bash
+docker exec stock-market-angular /bin/sh -lc "npm install -g > /dev/null && npm run build"
+```
+
+The application is allowed by address [http://127.0.0.1:80](http://127.0.0.1:80/)
 The api is allowed by address [http://127.0.0.1:80/api/stocks/historical-data/](http://127.0.0.1:80/api/stocks/historical-data/)
 
 ![image 1](front.png)

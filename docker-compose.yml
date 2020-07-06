@@ -6,7 +6,7 @@ services:
     container_name: stock-market-database
     environment:
       - MYSQL_DATABASE=stock-market
-      - MYSQL_USER=root
+      #- MYSQL_USER=root
       - MYSQL_PASSWORD=dev
       - MYSQL_ROOT_PASSWORD=dev
     ports:
@@ -45,13 +45,13 @@ services:
   angular:
     container_name: stock-market-angular
     build:
-      context: .docker/angular
+      context: .
+      dockerfile: .docker/angular/Dockerfile
     ports:
       - "8080:4200"
     depends_on:
       - php-fpm
     volumes:
-#      - /opt/node_modules
       - ./frontend:/opt
     networks:
       - stock-market-net

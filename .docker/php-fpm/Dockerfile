@@ -20,7 +20,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
         echo "alias composer='composer'" >> /root/.bashrc && \
         composer
 
-WORKDIR /opt
-
 CMD php-fpm
 EXPOSE 900
