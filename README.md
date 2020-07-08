@@ -35,7 +35,7 @@ docker exec stock-market-php /bin/sh -lc "composer install"
 - Load initial database 
 ```bash
 docker exec stock-market-php /bin/sh -lc "php bin/console doctrine:migrations:migrate"
-docker exec stock-market-php /bin/sh -lc "php bin/console doctrine:fixtures:load"
+docker exec stock-market-php /bin/sh -lc "php bin/console doctrine:fixtures:load --no-interaction"
 ```
 
 - Init frontend part (Angular) 
